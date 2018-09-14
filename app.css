@@ -1,1 +1,13 @@
- 
+.task_complete {
+	margin-right: 10px;
+	background-color: limegreen;
+}
+
+.clearBtn {
+	background-color: red;
+}
+
+body {
+	background-image: url("http://paperlief.com/images/corgi-puppy-sleeping-wallpaper-1.jpg");
+	background-position: center;
+}
