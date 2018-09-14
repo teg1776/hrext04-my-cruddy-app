@@ -47,6 +47,7 @@ $(document).ready(function() {
 
   $(".clearBtn").on('click', function(){ 
     $(".display").html("");
+    localStorage.clear();
   });
    
    

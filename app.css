@@ -8,6 +8,10 @@
 }
 
 body {
-	background-image: url("http://paperlief.com/images/corgi-puppy-sleeping-wallpaper-1.jpg");
-	background-position: center;
+	background-color: #e6e6e6;
+}
+
+#poetry {
+	font-family: snell roundhand, cursive;
+	font-style: italic;
 }
