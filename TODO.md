@@ -51,7 +51,6 @@
   *(4 hrs) ability to select and delete multiple items (checkbox?)
   *(4 hrs) ability to add/leave comments on item
   *(2 hrs) delete item confirmation
-
  
   
   

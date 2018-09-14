@@ -1,5 +1,19 @@
 $(document).ready(function() {
+// populate local storage items here
+  for (var a = 0; a < localStorage.length; a++) {
+    console.log(localStorage.key(a));
+    console.log(localStorage.key(a).indexOf('_complete'));
+    if((localStorage.key(a).indexOf('_complete') == -1)){
 
+      var strikeout = null;
+      if(localStorage.getItem(localStorage.key(a)+"_complete") == "true"){
+        strikeout = "style='text-decoration:line-through;'";
+      }
+
+      let itemHtml = '<div class="display-item" data-storage-key="' + localStorage.key(a) + '"' + strikeout + '><button class="task_complete">Complete</button><span><b>' + localStorage.key(a) + '</b><span> ' + localStorage.getItem(localStorage.key(a)) + ' - ' +  localStorage.getItem(localStorage.key(a)+"_complete");
+      $('.display').prepend(itemHtml);
+    }
+  }
 
   $(".add-text-btn").on("click", function(){
 
@@ -14,25 +28,26 @@ $(document).ready(function() {
     console.log(inputKey, inputValue);
 
     localStorage.setItem(inputKey, inputValue);
+    localStorage.setItem(inputKey+"_complete", false);
+
     // data-
-    let itemHtml = '<div class="display-item" data-storage-key="'+inputKey+'"> ' + inputKey + ' ' +  localStorage.getItem(inputKey) + '</div>';
-    $(".display").html(itemHtml);
-    //console.log(localStorage);
-    // how can we delegate this event to the outer html node?
-    // https://learn.jquery.com/events/event-delegation/
+    let itemHtml = '<div class="display-item" data-storage-key="'+inputKey+'"><button class="task_complete">Complete</button> ' + inputKey + ' ' +  localStorage.getItem(inputKey) + ' - ' +  localStorage.getItem(inputKey+"_complete") + '</div>';
+    $(".display").prepend(itemHtml);
 
-    $(".display-item").on("click", function(e){
-      // plop the key:value back into the input boxes
-
-      // get the values from the the divs?
-      console.log("key=> ", e.target.dataset.storageKey); // user-input-title
-      localStorage.getItem(e.target.dataset.storageKey); // user-input-body
-
-      // set those values in the form fields
-      $(".user-input-title").val(e.target.dataset.storageKey);
-      $(".user-input-body").val(localStorage.getItem(e.target.dataset.storageKey));
+    $(".task_complete").on('click', function(){
+      var _inputKey = $(this).closest('.display-item').attr('data-storage-key');
+      $(this).closest('.display-item').attr('style', 'text-decoration: line-through;');
+      console.log(_inputKey);
+      localStorage.setItem(_inputKey+"_complete", true)
     });
 
+  });
+
+  $(".task_complete").on('click', function(){
+    var _inputKey = $(this).closest('.display-item').attr('data-storage-key');
+    $(this).closest('.display-item').attr('style', 'text-decoration: line-through;');
+    console.log(_inputKey);
+    localStorage.setItem(_inputKey+"_complete", true)
   });
 
 
@@ -49,6 +64,11 @@ $(document).ready(function() {
      localStorage.removeItem( $('.user-input-title').val() ); // grab the title and plop here
      $(".user-input-title").val("");
      $(".user-input-body").val("");
+     $(".display").html("");
+     for (var a = 0; a < localStorage.length; a++) {
+    let itemHtml = '<div class="display-item" data-storage-key="' + localStorage.key(a) + '"><span><b>' + localStorage.key(a) + '</b><span> ' + localStorage.getItem(localStorage.key(a));
+    $('.display').prepend(itemHtml);
+  }
      // clearing display? what if I have multiple items?
      // after item is removed from local storage, redisplay items from local storage
      // refresh from storage?
